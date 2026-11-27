@@ -1,0 +1,4 @@
+title = "mcp-tool-integrity-harness-showcase"
+
+[extend]
+useDefault = true

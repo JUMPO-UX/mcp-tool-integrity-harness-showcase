@@ -1,0 +1,27 @@
+title: npx telemetry near an agent
+id: 7c3a9e21-4b18-4f6a-9d2e-11a0c5e8b671
+status: experimental
+description: >
+  Logs an npx process. This is not a malware alert. npx is used for builds,
+  CLIs and maintained MCP servers. Without ParentImage (or equivalent) and
+  without a package name, this rule must not be raised above informational.
+author: mcp-tool-integrity-harness
+date: 2026/11/08
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_npx:
+    Image|endswith:
+      - 'npx.exe'
+      - 'npx.cmd'
+    CommandLine|contains: 'npx'
+  condition: selection_npx
+falsepositives:
+  - Legitimate install or run through npx by a developer or a CI
+level: informational
+tags:
+  - attack.t1105
+# Prerequisites: process creation with Image and CommandLine.
+# ParentImage is not required here because the rule does not conclude anything.
+# Do not copy this rule at level high.
